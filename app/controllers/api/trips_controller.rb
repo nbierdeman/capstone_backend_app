@@ -4,6 +4,21 @@ class Api::TripsController < ApplicationController
     render "index.json.jb"
   end
 
+  def create
+    @trip = Trip.new(
+      duration: params[:duration],
+      distance: params[:distance],
+      mode: params[:mode],
+      trip_type: params[:trip_type],
+      user_id: params[:user_id],
+    )
+    if @trip.save
+      render "create.json.jb"
+    else
+      render json: { errors: @trip.errors.full_messages }, status: 422
+    end
+  end
+
   def show
     @trip = Trip.find_by(id: params[:id])
     render "show.json.jb"
