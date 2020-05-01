@@ -23,4 +23,20 @@ class Api::TripsController < ApplicationController
     @trip = Trip.find_by(id: params[:id])
     render "show.json.jb"
   end
+
+  def update
+    @trip = Trip.find_by(id: params[:id])
+    if @trip.trip_type == "directions"
+      @trip.duration = params[:duration] || @trip.duration
+      @trip.distance = params[:distance] || @trip.distance
+      @trip.mode = params[:mode] || @trip.mode
+    else
+      @trip.mode = params[:mode] || @trip.mode
+    end
+    if @trip.save
+      render "update.json.jb"
+    else
+      render json: { errors: @trip.errors.full_messages }, status: 422
+    end
+  end
 end
