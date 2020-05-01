@@ -1,0 +1,10 @@
+{
+  id: trip.id,
+  duration: trip.duration,
+  distance: trip.distance,
+  mode: trip.mode,
+  trip_type: trip.trip_type,
+  user_id: trip.user_id,
+  created_at: trip.created_at,
+  updated_at: trip.updated_at,
+}
