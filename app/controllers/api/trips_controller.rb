@@ -39,4 +39,10 @@ class Api::TripsController < ApplicationController
       render json: { errors: @trip.errors.full_messages }, status: 422
     end
   end
+
+  def destroy
+    @trip = Trip.find_by(id: params[:id])
+    @trip.destroy
+    render "destroy.json.jb"
+  end
 end
