@@ -1,0 +1,1 @@
+render partial: "trip_coordinate.json.jb", locals: { trip_coordinate: @trip_coordinate }
