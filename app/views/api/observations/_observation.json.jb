@@ -1,0 +1,13 @@
+{
+  id: observation.id,
+  value: observation.value,
+  uom: observation.uom,
+  timestamp: observation.timestamp,
+  sensor_path: observation.sensor_path,
+  node_vsn: observation.node_vsn,
+  longitude: observation.longitude,
+  latitude: observation.latitude,
+  trip_coordinate_id: observation.trip_coordinate_id,
+  created_at: observation.created_at,
+  updated_at: observation.updated_at,
+}

@@ -11,5 +11,7 @@ Rails.application.routes.draw do
     get "/trip_coordinates/:id" => "trip_coordinates#show"
     patch "/trip_coordinates/:id" => "trip_coordinates#update"
     delete "/trip_coordinates/:id" => "trip_coordinates#destroy"
+
+    get "/observations" => "observations#index"
   end
 end

@@ -1,0 +1,3 @@
+@observations.map do |observation|
+  render partial: "observation.json.jb", locals: { observation: observation }
+end
