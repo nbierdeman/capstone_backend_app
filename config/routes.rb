@@ -10,5 +10,6 @@ Rails.application.routes.draw do
     post "/trip_coordinates" => "trip_coordinates#create"
     get "/trip_coordinates/:id" => "trip_coordinates#show"
     patch "/trip_coordinates/:id" => "trip_coordinates#update"
+    delete "/trip_coordinates/:id" => "trip_coordinates#destroy"
   end
 end

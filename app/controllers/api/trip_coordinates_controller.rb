@@ -33,4 +33,10 @@ class Api::TripCoordinatesController < ApplicationController
       render json: { errors: @trip_coordinate.errors.full_messages }, status: 422
     end
   end
+
+  def destroy
+    @trip_coordinate = TripCoordinate.find_by(id: params[:id])
+    @trip_coordinate.destroy
+    render "destroy.json.jb"
+  end
 end
