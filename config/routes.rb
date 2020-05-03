@@ -7,5 +7,6 @@ Rails.application.routes.draw do
     delete "/trips/:id" => "trips#destroy"
 
     get "/trip_coordinates" => "trip_coordinates#index"
+    post "/trip_coordinates" => "trip_coordinates#create"
   end
 end
