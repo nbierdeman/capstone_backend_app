@@ -1,0 +1,3 @@
+@trip_coordinates.map do |trip_coordinate|
+  render partial: "trip_coordinate.json.jb", locals: { trip_coordinate: trip_coordinate }
+end

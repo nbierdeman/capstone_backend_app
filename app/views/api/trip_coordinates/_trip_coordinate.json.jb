@@ -1,0 +1,8 @@
+{
+  id: trip_coordinate.id,
+  longitude: trip_coordinate.longitude,
+  latitude: trip_coordinate.latitude,
+  trip_id: trip_coordinate.trip_id,
+  created_at: trip_coordinate.created_at,
+  updated_at: trip_coordinate.updated_at,
+}
