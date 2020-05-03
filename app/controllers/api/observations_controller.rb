@@ -43,4 +43,10 @@ class Api::ObservationsController < ApplicationController
       render json: { errors: @observation.errors.full_messages }, status: 422
     end
   end
+
+  def destroy
+    @observation = Observation.find_by(id: params[:id])
+    @observation.destroy
+    render "destroy.json.jb"
+  end
 end
