@@ -16,4 +16,9 @@ class Api::TripCoordinatesController < ApplicationController
       render json: { errors: @trip_coordinate.errors.full_messages }, status: 422
     end
   end
+
+  def show
+    @trip_coordinate = TripCoordinate.find_by(id: params[:id])
+    render "show.json.jb"
+  end
 end
