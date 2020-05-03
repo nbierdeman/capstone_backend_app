@@ -5,8 +5,8 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-user1 = User.create!(first_name: "John", last_name: "Lennon", email: "john@example.com", password_digest: "password")
-user2 = User.create!(first_name: "Paul", last_name: "McCartney", email: "paul@example.com", password_digest: "password")
+user1 = User.create!(first_name: "John", last_name: "Lennon", email: "john@example.com", password: "password")
+user2 = User.create!(first_name: "Paul", last_name: "McCartney", email: "paul@example.com", password: "password")
 trip1 = Trip.create!(duration: 1329.7, distance: 5233.8, mode: "cycling", trip_type: "directions", user_id: user1.id)
 trip2 = Trip.create!(duration: 184.8, distance: 675.2, mode: "cycling", trip_type: "directions", user_id: user2.id)
 trip3 = Trip.create!(duration: 140.2, distance: 343.0, mode: "cycling", trip_type: "directions", user_id: user2.id)
