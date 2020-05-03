@@ -21,4 +21,9 @@ class Api::ObservationsController < ApplicationController
       render json: { errors: @observation.errors.full_messages }, status: 422
     end
   end
+
+  def show
+    @observation = Observation.find_by(id: params[:id])
+    render "show.json.jb"
+  end
 end

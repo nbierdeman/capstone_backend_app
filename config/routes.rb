@@ -14,5 +14,6 @@ Rails.application.routes.draw do
 
     get "/observations" => "observations#index"
     post "/observations" => "observations#create"
+    get "/observations/:id" => "observations#show"
   end
 end
