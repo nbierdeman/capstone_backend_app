@@ -17,5 +17,7 @@ Rails.application.routes.draw do
     get "/observations/:id" => "observations#show"
     patch "observations/:id" => "observations#update"
     delete "observations/:id" => "observations#destroy"
+
+    post "/users" => "users#create"
   end
 end
