@@ -19,5 +19,7 @@ Rails.application.routes.draw do
     delete "observations/:id" => "observations#destroy"
 
     post "/users" => "users#create"
+
+    post "/sessions" => "sessions#create"
   end
 end
