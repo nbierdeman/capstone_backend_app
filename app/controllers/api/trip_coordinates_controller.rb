@@ -1,4 +1,6 @@
 class Api::TripCoordinatesController < ApplicationController
+  before_action :authenticate_user
+
   def index
     @trip_coordinates = TripCoordinate.all
     render "index.json.jb"

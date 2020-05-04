@@ -1,4 +1,6 @@
 class Api::TripsController < ApplicationController
+  before_action :authenticate_user
+
   def index
     @trips = Trip.all
     render "index.json.jb"

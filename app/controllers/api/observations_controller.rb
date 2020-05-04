@@ -1,4 +1,6 @@
 class Api::ObservationsController < ApplicationController
+  before_action :authenticate_user
+
   def index
     @observations = Observation.all
     render "index.json.jb"
