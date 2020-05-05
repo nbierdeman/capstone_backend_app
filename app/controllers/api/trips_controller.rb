@@ -2,7 +2,7 @@ class Api::TripsController < ApplicationController
   before_action :authenticate_user
 
   def index
-    @trips = Trip.all
+    @trips = current_user.trips
     render "index.json.jb"
   end
 
@@ -12,7 +12,7 @@ class Api::TripsController < ApplicationController
       distance: params[:distance],
       mode: params[:mode],
       trip_type: params[:trip_type],
-      user_id: params[:user_id],
+      user_id: current_user.id,
     )
     if @trip.save
       render "create.json.jb"
@@ -22,12 +22,12 @@ class Api::TripsController < ApplicationController
   end
 
   def show
-    @trip = Trip.find_by(id: params[:id])
+    @trip = current_user.trips.find_by(id: params[:id])
     render "show.json.jb"
   end
 
   def update
-    @trip = Trip.find_by(id: params[:id])
+    @trip = current_user.trips.find_by(id: params[:id])
     if @trip.trip_type == "directions"
       @trip.duration = params[:duration] || @trip.duration
       @trip.distance = params[:distance] || @trip.distance
@@ -43,7 +43,7 @@ class Api::TripsController < ApplicationController
   end
 
   def destroy
-    @trip = Trip.find_by(id: params[:id])
+    @trip = current_user.trips.find_by(id: params[:id])
     @trip.destroy
     render "destroy.json.jb"
   end
