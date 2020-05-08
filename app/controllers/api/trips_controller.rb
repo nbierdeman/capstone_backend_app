@@ -23,6 +23,10 @@ class Api::TripsController < ApplicationController
 
   def show
     @trip = current_user.trips.find_by(id: params[:id])
+    @trip_coordinates = TripCoordinate.where(trip_id: @trip.id)
+    @observations = @trip_coordinates.each do |trip_coordinate|
+      Observation.where(trip_coordinate_id: trip_coordinate.id)
+    end
     render "show.json.jb"
   end
 

@@ -7,4 +7,6 @@
   user_id: trip.user_id,
   created_at: trip.created_at,
   updated_at: trip.updated_at,
+  trip_coordinates: @trip_coordinates,
+  observations: @observations,
 }
