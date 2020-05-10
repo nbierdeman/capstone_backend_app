@@ -1,0 +1,5 @@
+{
+  # directions: @directions,
+  waypoints: @waypoints,
+# nodes: @nodes,
+}
