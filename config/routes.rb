@@ -21,5 +21,7 @@ Rails.application.routes.draw do
     post "/users" => "users#create"
 
     post "/sessions" => "sessions#create"
+
+    get "/maps" => "maps#directions"
   end
 end
