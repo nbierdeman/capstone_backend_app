@@ -8,6 +8,11 @@ class Api::MapsController < ApplicationController
     response2 = HTTP.get("https://api.arrayofthings.org/api/nodes?project=chicago")
     @nodes = response2.parse
 
+    @node_coordinates = []
+    @nodes["data"].each do |node|
+      @node_coordinates << node["location"]["geometry"]["coordinates"]
+    end
+
     render "directions.json.jb"
   end
 end

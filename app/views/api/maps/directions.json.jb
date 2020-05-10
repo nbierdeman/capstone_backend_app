@@ -1,5 +1,6 @@
 {
   # directions: @directions,
-  waypoints: @waypoints,
-# nodes: @nodes,
+  # waypoints: @waypoints,
+  # nodes: @nodes,
+  node_coordinates: @node_coordinates,
 }
