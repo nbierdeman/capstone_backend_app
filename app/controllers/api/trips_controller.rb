@@ -33,13 +33,7 @@ class Api::TripsController < ApplicationController
 
   def update
     @trip = current_user.trips.find_by(id: params[:id])
-    if @trip.trip_type == "directions"
-      # @trip.duration = params[:duration] || @trip.duration
-      # @trip.distance = params[:distance] || @trip.distance
-      @trip.mode = params[:mode] || @trip.mode
-    else
-      @trip.mode = params[:mode] || @trip.mode
-    end
+    @trip.mode = params[:mode] || @trip.mode
     if @trip.save
       render "update.json.jb"
     else
