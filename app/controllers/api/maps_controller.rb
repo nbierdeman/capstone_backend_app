@@ -25,8 +25,8 @@ class Api::MapsController < ApplicationController
     # get the vsn for each of the @closest_node_coordinates
     @node_vsns = []
 
-    #get air quality observations for each of the node_vsns array; start with just pm2_5 and pm10
-    response2 = HTTP.get("https://api.arrayofthings.org/api/observations?project=chicago&node=072&sensor[]=alphasense.opc_n2.pm2_5&sensor[]=alphasense.opc_n2.pm10")
+    #get first air quality observation for each of the node_vsns array
+    response2 = HTTP.get("https://api.arrayofthings.org/api/observations?project=chicago&node=072")
     @observations = response2.parse
 
     render "air_quality.json.jb"
