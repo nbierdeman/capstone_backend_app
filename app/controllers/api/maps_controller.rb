@@ -1,5 +1,5 @@
 class Api::MapsController < ApplicationController
-  def route
+  def set_waypoints
     @route = params[:route]
     render json: { message: "Got the route!" }
     @waypoints = []
