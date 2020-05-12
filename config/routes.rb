@@ -23,5 +23,6 @@ Rails.application.routes.draw do
     post "/sessions" => "sessions#create"
 
     get "/maps" => "maps#directions"
+    post "/maps" => "maps#route"
   end
 end
