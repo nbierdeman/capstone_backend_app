@@ -22,7 +22,7 @@ Rails.application.routes.draw do
 
     post "/sessions" => "sessions#create"
 
-    get "/maps" => "maps#directions"
+    get "/maps" => "maps#air_quality"
     post "/maps" => "maps#set_waypoints"
   end
 end

@@ -8,26 +8,27 @@ class Api::MapsController < ApplicationController
     end
   end
 
-  def directions
-    response1 = HTTP.get("https://api.mapbox.com/directions/v5/mapbox/cycling/#{params[:start_lng]}%2C#{params[:start_lat]}%3B#{params[:end_lng]}%2C#{params[:end_lat]}?alternatives=false&geometries=geojson&steps=true&access_token=#{Rails.application.credentials.maps_api[:mapbox_key]}")
-    @directions = response1.parse
+  def air_quality
+    # get up-to-date chicago node information
+    response1 = HTTP.get("https://api.arrayofthings.org/api/nodes?project=chicago")
+    @nodes = response1.parse
 
-    # @waypoints = @directions["routes"][0]["geometry"]["coordinates"]
+    # get coordinates of each node in chicago
+    @node_coordinates = []
+    @nodes["data"].each do |node|
+      @node_coordinates << node["location"]["geometry"]["coordinates"]
+    end
 
-    # response2 = HTTP.get("https://api.arrayofthings.org/api/nodes?project=chicago")
-    # @nodes = response2.parse
+    # get the closest node coordinates for each waypoint by looping through the @node_coordinates array
+    @closest_node_coordinates = []
 
-    # @node_coordinates = []
-    # @nodes["data"].each do |node|
-    #   @node_coordinates << node["location"]["geometry"]["coordinates"]
-    # end
+    # get the vsn for each of the @closest_node_coordinates
+    @node_vsns = []
 
-    # response3 = HTTP.get("https://api.arrayofthings.org/api/nodes?location=within:#{@directions["routes"][0]["geometry"]["coordinates"]}")
-    # @nodes = response3.parse
+    #get air quality observations for each of the node_vsns array; start with just pm2_5 and pm10
+    response2 = HTTP.get("https://api.arrayofthings.org/api/observations?project=chicago&node=072&sensor[]=alphasense.opc_n2.pm2_5&sensor[]=alphasense.opc_n2.pm10")
+    @observations = response2.parse
 
-    response4 = HTTP.get("https://api.arrayofthings.org/api/observations?project=chicago&node=072")
-    @observations = response4.parse
-
-    render "directions.json.jb"
+    render "air_quality.json.jb"
   end
 end
