@@ -1,11 +1,11 @@
 class Api::MapsController < ApplicationController
   def set_waypoints
     @route = params[:route]
-    render json: { message: "Got the route!" }
     $waypoints = []
     @route["route"][0]["legs"][0]["steps"].each do |maneuver|
       $waypoints << maneuver["intersections"][0]["location"]
     end
+    render json: { message: "Got the route!", waypoints: $waypoints }
   end
 
   def air_quality
