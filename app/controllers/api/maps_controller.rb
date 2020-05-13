@@ -33,9 +33,17 @@ class Api::MapsController < ApplicationController
       end
       @closest_node_coordinates << lowest_magnitude_coordinate
     end
+    @closest_node_coordinates = @closest_node_coordinates.uniq!
 
     # get the vsn for each of the @closest_node_coordinates
     @node_vsns = []
+    @closest_node_coordinates.each do |closest_node_coordinate|
+      @nodes["data"].each do |node|
+        if node["location"]["geometry"]["coordinates"] == closest_node_coordinate
+          @node_vsns << node["vsn"]
+        end
+      end
+    end
 
     #get first air quality observation for each of the node_vsns array
     response2 = HTTP.get("https://api.arrayofthings.org/api/observations?project=chicago&node=072&senor[]=alphasense.opc_n2.pm2_5&sensor[]=alphasense.opc_n2.pm10")
