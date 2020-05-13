@@ -46,9 +46,12 @@ class Api::MapsController < ApplicationController
     end
 
     #get first air quality observation for each of the node_vsns array
-    response2 = HTTP.get("https://api.arrayofthings.org/api/observations?project=chicago&node=072&senor[]=alphasense.opc_n2.pm2_5&sensor[]=alphasense.opc_n2.pm10")
-    @observations = response2.parse
-
+    @observations = []
+    @node_vsns.each do |vsn|
+      response = HTTP.get("https://api.arrayofthings.org/api/observations?project=chicago&node=#{vsn}")
+      observation = response.parse
+      @observations << observation
+    end
     render "air_quality.json.jb"
   end
 end
