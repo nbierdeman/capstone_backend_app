@@ -1,3 +1,4 @@
 {
   observations: @observations,
+  closest_node_coordinates: @closest_node_coordinates,
 }
