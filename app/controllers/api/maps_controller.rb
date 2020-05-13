@@ -50,7 +50,7 @@ class Api::MapsController < ApplicationController
     @node_vsns.each do |vsn|
       response = HTTP.get("https://api.arrayofthings.org/api/observations?project=chicago&node=#{vsn}")
       observation = response.parse
-      @observations << observation
+      @observations << observation["data"][0]
     end
     render "air_quality.json.jb"
   end
