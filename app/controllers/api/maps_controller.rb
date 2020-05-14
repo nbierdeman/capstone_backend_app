@@ -5,7 +5,11 @@ class Api::MapsController < ApplicationController
     @route["route"][0]["legs"][0]["steps"].each do |maneuver|
       $waypoints << maneuver["intersections"][0]["location"]
     end
-    render json: { message: "Got the route!", waypoints: $waypoints }
+    @duration = @route["route"][0]["duration"]
+    @distance = @route["route"][0]["distance"]
+    @mode = "cycling"
+    @trip_type = "directions"
+    render json: { message: "Got the route!", waypoints: $waypoints, duration: @duration, distance: @distance, mode: @mode, trip_type: @trip_type }
   end
 
   def air_quality
