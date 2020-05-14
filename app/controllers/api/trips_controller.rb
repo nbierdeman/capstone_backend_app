@@ -29,7 +29,7 @@ class Api::TripsController < ApplicationController
         latitude: trip_coordinate[1],
         trip_id: @trip.id,
       )
-      # do this as many times as sensor_paths you're using
+      # do this as many times as sensor_paths being used
       2.times do
         Observation.create(
           value: @observations[@index][:value],
