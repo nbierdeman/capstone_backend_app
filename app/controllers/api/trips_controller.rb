@@ -19,6 +19,31 @@ class Api::TripsController < ApplicationController
     else
       render json: { errors: @trip.errors.full_messages }, status: 422
     end
+
+    @trip_coordinates = params[:closest_node_coordinates]
+    @observations = params[:observations]
+    @index = 0
+    @trip_coordinates.each do |trip_coordinate|
+      @trip_coordinate = TripCoordinate.create(
+        longitude: trip_coordinate[0],
+        latitude: trip_coordinate[1],
+        trip_id: @trip.id,
+      )
+      # do this as many times as sensor_paths you're using
+      2.times do
+        Observation.create(
+          value: @observations[@index][:value],
+          uom: @observations[@index][:uom],
+          timestamp: @observations[@index][:timestamp],
+          sensor_path: @observations[@index][:sensor_path],
+          node_vsn: @observations[@index][:node_vsn],
+          longitude: @observations[@index][:coordinates][0],
+          latitude: @observations[@index][:coordinates][1],
+          trip_coordinate_id: @trip_coordinate.id,
+        )
+        @index += 1
+      end
+    end
   end
 
   def show
