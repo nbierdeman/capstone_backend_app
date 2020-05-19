@@ -49,7 +49,30 @@ class Api::MapsController < ApplicationController
       end
     end
 
-    #get first air quality observation for each of the node_vsns array
+    # create custom geojson for mapping each of the closest nodes
+    @nodes_geojson = {
+      type: "FeatureCollection",
+      features: [],
+    }
+    @closest_node_coordinates.each do |closest_node_coordinate|
+      @nodes["data"].each do |node|
+        if node["location"]["geometry"]["coordinates"] == closest_node_coordinate
+          @nodes_geojson[:features] << {
+            type: "Feature",
+            geometry: {
+              type: "Point",
+              coordinates: node["location"]["geometry"]["coordinates"],
+            },
+            properties: {
+              title: node["vsn"],
+              description: node["description"],
+            },
+          }
+        end
+      end
+    end
+
+    # get first air quality observation for each of the node_vsns array
     @observations = []
     @node_vsns.each do |vsn|
       # response = HTTP.get("https://api.arrayofthings.org/api/observations?project=chicago&node=#{vsn}")
