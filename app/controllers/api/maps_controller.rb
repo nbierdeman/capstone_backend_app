@@ -72,28 +72,50 @@ class Api::MapsController < ApplicationController
       end
     end
 
-    # get first air quality observation for each of the node_vsns array
+    # get air quality observations for each of the node_vsns array
     @observations = []
-    @node_vsns.each do |vsn|
-      # response = HTTP.get("https://api.arrayofthings.org/api/observations?project=chicago&node=#{vsn}")
-      response = HTTP.get("https://api.arrayofthings.org/api/observations?project=chicago&node=072&sensor[]=alphasense.opc_n2.pm2_5&sensor[]=alphasense.opc_n2.pm10")
-      observation = response.parse
+    # @node_vsns.each do |vsn|
+    # response = HTTP.get("https://api.arrayofthings.org/api/observations?project=chicago&node=#{vsn}")
+    # @observation = response.parse
+    # @observations << {
+    #   value: observation["data"][0]["value"],
+    #   uom: observation["data"][0]["uom"],
+    #   timestamp: observation["data"][0]["timestamp"],
+    #   sensor_path: observation["data"][0]["sensor_path"],
+    #   node_vsn: observation["data"][0]["node_vsn"],
+    #   coordinates: observation["data"][0]["location"]["geometry"]["coordinates"],
+    # }
+    # @observations << {
+    #   value: observation["data"][1]["value"],
+    #   uom: observation["data"][1]["uom"],
+    #   timestamp: observation["data"][1]["timestamp"],
+    #   sensor_path: observation["data"][1]["sensor_path"],
+    #   node_vsn: observation["data"][1]["node_vsn"],
+    #   coordinates: observation["data"][1]["location"]["geometry"]["coordinates"],
+    # }
+    # end
+
+    response = HTTP.get("https://api.arrayofthings.org/api/observations?project=chicago&node=072&sensor[]=alphasense.opc_n2.pm2_5&sensor[]=alphasense.opc_n2.pm10")
+    @observation = response.parse
+    index = 0
+    @closest_node_coordinates.length.times do
       @observations << {
-        value: observation["data"][0]["value"],
-        uom: observation["data"][0]["uom"],
-        timestamp: observation["data"][0]["timestamp"],
-        sensor_path: observation["data"][0]["sensor_path"],
-        node_vsn: observation["data"][0]["node_vsn"],
-        coordinates: observation["data"][0]["location"]["geometry"]["coordinates"],
+        value: @observation["data"][index]["value"],
+        uom: @observation["data"][index]["uom"],
+        timestamp: @observation["data"][index]["timestamp"],
+        sensor_path: @observation["data"][index]["sensor_path"],
+        node_vsn: @observation["data"][index]["node_vsn"],
+        coordinates: @observation["data"][index]["location"]["geometry"]["coordinates"],
       }
       @observations << {
-        value: observation["data"][1]["value"],
-        uom: observation["data"][1]["uom"],
-        timestamp: observation["data"][1]["timestamp"],
-        sensor_path: observation["data"][1]["sensor_path"],
-        node_vsn: observation["data"][1]["node_vsn"],
-        coordinates: observation["data"][1]["location"]["geometry"]["coordinates"],
+        value: @observation["data"][index + 1]["value"],
+        uom: @observation["data"][index + 1]["uom"],
+        timestamp: @observation["data"][index + 1]["timestamp"],
+        sensor_path: @observation["data"][index + 1]["sensor_path"],
+        node_vsn: @observation["data"][index + 1]["node_vsn"],
+        coordinates: @observation["data"][index + 1]["location"]["geometry"]["coordinates"],
       }
+      index += 2
     end
     render "air_quality.json.jb"
   end
