@@ -23,7 +23,7 @@ class Api::MapsController < ApplicationController
       @node_coordinates << node["location"]["geometry"]["coordinates"]
     end
 
-    # get the closest node coordinates for each waypoint by looping through the @node_coordinates array; don't forget to .uniq! it
+    # get the closest node coordinates for each waypoint using the Pythagorean theorem by looping through the @node_coordinates array; don't forget to .uniq! it
     @closest_node_coordinates = []
     $waypoints.each do |waypoint|
       lowest_magnitude = 10000000000
@@ -49,7 +49,7 @@ class Api::MapsController < ApplicationController
       end
     end
 
-    # create custom geojson for mapping each of the closest nodes
+    # create custom geojson for mapping each node from @closest_node_coordinates
     @nodes_geojson = {
       type: "FeatureCollection",
       features: [],
